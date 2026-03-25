@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../utils/api';
 import { Eye, EyeOff } from 'lucide-react';
 
@@ -10,6 +10,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isAdminLogin = location.state?.fromAdmin || false;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,10 +34,12 @@ export default function Login() {
     <div className="bg-gray-50 flex flex-col justify-center py-20 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-4xl font-extrabold text-dark tracking-tight">
-          {isLogin ? 'Sign in to' : 'Join'} <br />
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-500">
-            Golf Charity
-          </span>
+          {isAdminLogin && isLogin ? 'Admin Portal Login' : (isLogin ? 'Sign in to' : 'Join')} <br />
+          {!isAdminLogin && (
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-500">
+              Golf Charity
+            </span>
+          )}
         </h2>
       </div>
 
@@ -90,6 +94,9 @@ export default function Login() {
                 {isLogin ? "Sign up" : "Sign in"}
               </span>
             </button>
+            {isAdminLogin && (
+              <p className="mt-4 text-xs font-semibold text-red-500">Secure Admin Login Portal. Only authorized personnel.</p>
+            )}
           </div>
         </div>
       </div>
