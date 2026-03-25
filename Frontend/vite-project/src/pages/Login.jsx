@@ -2,10 +2,12 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ name: '', email: '', password: '', role: 'User' });
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -48,7 +50,10 @@ export default function Login() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700">Full Name</label>
                 <div className="mt-1">
-                  <input type="text" required onChange={(e) => setFormData({...formData, name: e.target.value})} className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 sm:text-sm transition-all" placeholder="John Doe" />
+                  <input type="text" required value={formData.name} onChange={(e) => {
+                    const lettersOnly = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                    setFormData({...formData, name: lettersOnly});
+                  }} className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 sm:text-sm transition-all" placeholder="John Doe" />
                 </div>
               </div>
             )}
@@ -61,8 +66,11 @@ export default function Login() {
 
             <div>
               <label className="block text-sm font-semibold text-gray-700">Password</label>
-              <div className="mt-1">
-                <input type="password" required onChange={(e) => setFormData({...formData, password: e.target.value})} className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 sm:text-sm transition-all" placeholder="••••••••" />
+              <div className="mt-1 relative">
+                <input type={showPassword ? "text" : "password"} required onChange={(e) => setFormData({...formData, password: e.target.value})} className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500/50 focus:border-primary-500 sm:text-sm transition-all pr-12" placeholder="••••••••" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-primary-600 transition-colors">
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
               </div>
             </div>
 

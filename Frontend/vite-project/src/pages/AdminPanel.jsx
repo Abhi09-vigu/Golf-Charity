@@ -85,30 +85,30 @@ export default function AdminPanel() {
 
       <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
-        <div className="md:w-64 space-y-2">
+        <div className="flex overflow-x-auto pb-4 md:pb-0 md:flex-col md:w-64 gap-3 shrink-0 scrollbar-hide">
           <button 
             onClick={() => setActiveTab('users')} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'users' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`whitespace-nowrap flex items-center gap-2 md:gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'users' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
           >
-            <Users className="w-5 h-5" /> Manage Users
+            <Users className="w-5 h-5 shrink-0" /> Manage Users
           </button>
           <button 
             onClick={() => setActiveTab('charities')} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'charities' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`whitespace-nowrap flex items-center gap-2 md:gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'charities' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
           >
-            <Building2 className="w-5 h-5" /> Manage Charities
+            <Building2 className="w-5 h-5 shrink-0" /> Charities
           </button>
           <button 
             onClick={() => setActiveTab('draw')} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'draw' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`whitespace-nowrap flex items-center gap-2 md:gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'draw' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
           >
-            <Trophy className="w-5 h-5" /> Monthly Draw
+            <Trophy className="w-5 h-5 shrink-0" /> Draw
           </button>
           <button 
             onClick={() => setActiveTab('winners')} 
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'winners' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+            className={`whitespace-nowrap flex items-center gap-2 md:gap-3 px-4 py-3 rounded-xl font-medium transition-all ${activeTab === 'winners' ? 'bg-gradient-to-r from-primary-600 to-primary-500 text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
           >
-            <Trophy className="w-5 h-5 text-yellow-500" /> Verify Winners
+            <Trophy className="w-5 h-5 shrink-0 text-yellow-500" /> Verify
           </button>
         </div>
 

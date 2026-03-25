@@ -92,11 +92,11 @@ export default function Dashboard() {
             </div>
             
             {subStatus !== 'Active' && (
-              <div className="flex gap-4 relative z-10">
-                <button onClick={() => subscribe('Monthly')} className="flex-1 px-4 py-3 bg-white border-2 border-primary-500 text-primary-600 rounded-xl font-semibold hover:bg-primary-50 transition-colors">
+              <div className="flex flex-col sm:flex-row gap-4 relative z-10">
+                <button onClick={() => subscribe('Monthly')} className="w-full sm:flex-1 px-4 py-3 bg-white border-2 border-primary-500 text-primary-600 rounded-xl font-semibold hover:bg-primary-50 transition-colors">
                   $10 / Month
                 </button>
-                <button onClick={() => subscribe('Yearly')} className="flex-1 px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg shadow-primary-500/30">
+                <button onClick={() => subscribe('Yearly')} className="w-full sm:flex-1 px-4 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white rounded-xl font-semibold hover:scale-105 transition-transform shadow-lg shadow-primary-500/30">
                   $100 / Year
                 </button>
               </div>
@@ -118,17 +118,17 @@ export default function Dashboard() {
           {/* Scores Card */}
           <div className="glass p-8 rounded-3xl">
              <h3 className="text-xl font-bold mb-4 flex items-center gap-2"><Target className="text-primary-500 w-6 h-6" /> Your Latest Scores</h3>
-             <form onSubmit={handleAddScore} className="flex gap-3 mb-6">
+             <form onSubmit={handleAddScore} className="flex flex-col sm:flex-row gap-3 mb-6">
                 <input 
                   type="number" 
                   min="1" max="45" 
                   placeholder="Enter score (1-45)" 
                   value={newScore}
                   onChange={(e) => setNewScore(e.target.value)}
-                  className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50"
+                  className="w-full sm:flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500/50"
                   required
                 />
-                <button type="submit" className="px-6 py-3 bg-dark text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shadow-md">
+                <button type="submit" className="w-full sm:w-auto px-6 py-3 bg-dark text-white rounded-xl font-semibold hover:bg-gray-800 transition-colors shadow-md">
                   Add
                 </button>
              </form>
