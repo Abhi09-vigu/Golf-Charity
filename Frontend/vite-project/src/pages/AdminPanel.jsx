@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { Users, Building2, PlayCircle, Trophy } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 
@@ -25,28 +25,28 @@ export default function AdminPanel() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/users', { withCredentials: true });
+      const res = await api.get('/api/admin/users');
       setUsers(res.data);
     } catch (err) { }
   };
 
   const fetchCharities = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/charity', { withCredentials: true });
+      const res = await api.get('/api/charity');
       setCharities(res.data);
     } catch (err) { }
   };
 
   const fetchWinners = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/admin/winners', { withCredentials: true });
+      const res = await api.get('/api/admin/winners');
       setWinners(res.data);
     } catch (err) { }
   };
 
   const updateWinner = async (id, vStatus, pStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/winners/${id}`, { verificationStatus: vStatus, paymentStatus: pStatus }, { withCredentials: true });
+      await api.put(`/api/admin/winners/${id}`, { verificationStatus: vStatus, paymentStatus: pStatus });
       fetchWinners();
     } catch (err) {
       alert('Error updating winner');
@@ -56,7 +56,7 @@ export default function AdminPanel() {
   const handleAddCharity = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/admin/charity', newCharity, { withCredentials: true });
+      await api.post('/api/admin/charity', newCharity);
       setNewCharity({ name: '', description: '', logoUrl: '' });
       fetchCharities();
       alert('Charity added successfully');
@@ -67,7 +67,7 @@ export default function AdminPanel() {
 
   const runDraw = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/admin/draw', {}, { withCredentials: true });
+      const res = await api.post('/api/admin/draw', {});
       setDrawResult(res.data);
     } catch (err) {
       alert(err.response?.data?.message || 'Error occurred');

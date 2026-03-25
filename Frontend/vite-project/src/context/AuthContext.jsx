@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-
+import api from '../utils/api';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -10,14 +10,28 @@ export const AuthProvider = ({ children }) => {
     if (loggedUser) {
       setUser(JSON.parse(loggedUser));
     }
+    
+    // Check session on load
+    const checkUser = async () => {
+      try {
+        const res = await api.get('/api/auth/check');
+        setUser(res.data);
+      } catch (err) {
+        setUser(null);
+      }
+    };
+    checkUser();
   }, []);
 
-  const login = (userData) => {
+  const login = async (userData) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
   };
 
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await api.post('/api/auth/logout');
+    } catch (err) {}
     setUser(null);
     localStorage.removeItem('user');
   };

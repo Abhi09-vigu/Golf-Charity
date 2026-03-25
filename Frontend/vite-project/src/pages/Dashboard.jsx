@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 import { Target, Trophy, CreditCard, Heart } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
 
@@ -19,13 +19,13 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const scoreRes = await axios.get('http://localhost:5000/api/score', { withCredentials: true });
+      const scoreRes = await api.get('/api/score');
       setScores(scoreRes.data);
       
-      const subRes = await axios.get('http://localhost:5000/api/subscription/status', { withCredentials: true });
+      const subRes = await api.get('/api/subscription/status');
       setSubStatus(subRes.data.status);
 
-      const winRes = await axios.get('http://localhost:5000/api/winner/my-winnings', { withCredentials: true });
+      const winRes = await api.get('/api/winner/my-winnings');
       setWinnings(winRes.data);
     } catch (err) {
       console.log(err);
@@ -36,7 +36,7 @@ export default function Dashboard() {
     e.preventDefault();
     if (!newScore || newScore < 1 || newScore > 45) return alert('Score must be 1-45');
     try {
-      const res = await axios.post('http://localhost:5000/api/score', { score: parseInt(newScore) }, { withCredentials: true });
+      const res = await api.post('/api/score', { score: parseInt(newScore) });
       setScores(res.data);
       setNewScore('');
     } catch (err) {
@@ -46,7 +46,7 @@ export default function Dashboard() {
 
   const subscribe = async (plan) => {
     try {
-      const res = await axios.post('http://localhost:5000/api/subscription/create-checkout-session', { plan }, { withCredentials: true });
+      const res = await api.post('/api/subscription/create-checkout-session', { plan });
       alert(res.data.message);
       fetchData();
     } catch (err) {
@@ -58,7 +58,7 @@ export default function Dashboard() {
     const url = prompt("Enter proof image URL to verify your winnings:");
     if (!url) return;
     try {
-      await axios.post(`http://localhost:5000/api/winner/${winnerId}/upload-proof`, { proofUrl: url }, { withCredentials: true });
+      await api.post(`/api/winner/${winnerId}/upload-proof`, { proofUrl: url });
       fetchData();
       alert("Proof submitted successfully");
     } catch (err) {

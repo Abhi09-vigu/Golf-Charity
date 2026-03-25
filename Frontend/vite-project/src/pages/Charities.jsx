@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
+import api from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
 import { Heart } from 'lucide-react';
 
@@ -13,7 +13,7 @@ export default function Charities() {
 
   const fetchCharities = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/charity', { withCredentials: true });
+      const res = await api.get('/api/charity');
       setCharities(res.data);
     } catch (err) { }
   };

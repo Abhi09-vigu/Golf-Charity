@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../utils/api';
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
@@ -16,7 +16,7 @@ export default function Login() {
     try {
       const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
       const payload = isLogin ? { email: formData.email, password: formData.password } : formData;
-      const res = await axios.post(`http://localhost:5000${endpoint}`, payload, { withCredentials: true });
+      const res = await api.post(endpoint, payload);
       login(res.data.user);
       if (res.data.user.role === 'Admin') {
         navigate('/admin');
