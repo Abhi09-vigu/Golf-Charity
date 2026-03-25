@@ -74,7 +74,7 @@ export default function AdminPanel() {
     }
   };
 
-  if (!user) return <Navigate to="/login" state={{ fromAdmin: true }} />;
+  if (!user) return <Navigate to="/admin-login" />;
   if (user.role !== 'Admin') return <Navigate to="/" />;
 
   return (
