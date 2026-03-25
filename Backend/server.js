@@ -10,8 +10,21 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://golf-charity-i5yg.vercel.app"
+];
 
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS blocked"));
+    }
+  },
+  credentials: true
+}));
 const User = require('./models/User');
 const bcrypt = require('bcryptjs');
 
