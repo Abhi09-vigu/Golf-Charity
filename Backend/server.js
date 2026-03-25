@@ -8,6 +8,9 @@ dotenv.config();
 
 const app = express();
 
+// Trust the reverse proxy on Render for secure cookies
+app.set('trust proxy', 1);
+
 app.use(express.json());
 app.use(cookieParser());
 const allowedOrigins = [
